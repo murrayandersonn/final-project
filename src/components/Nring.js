@@ -1,5 +1,6 @@
 import '../components/Nring.css';
 import React, { useEffect, useState } from 'react';
+import HistoricMoments from './HistoricMoments';
 
 function Nring() {
   const API_URL='https://6679b67218a459f6395126c1.mockapi.io/api/laptime/cars';
@@ -9,7 +10,7 @@ function Nring() {
   const [newCar, setNewCar] = useState({ car: '', image: '', track: '', laptime: '' });
   const [editingCar, setEditingCar] = useState(null);
   const [imageUrl, setImageUrl] = useState('');
-  const [isPopupVisible, setIsPopupVisible] = useState(false);
+ 
 
   //renders again if theres an update
   useEffect(() => {
@@ -112,9 +113,9 @@ function Nring() {
         <div className="card-body" style={{backgroundImage:'url("https://www.24h-rennen.de/wp-content/uploads/2023/05/24hQualifiers_2023_Pulk-Nordschleife_Foto-GruppeC-ADAC.jpg")'}}>
           <div className="row">
             <div className='col-lg-3'>
-            <div className='card text-white px-3' style={{backgroundColor: "#36454F", textAlign: "center"}}>
+            <div className='card text-white px-3' style={{backgroundColor: "#36454F", alignItems: "center", textAlign: "center"}}>
                 <div className='card-header'>
-                <h2>Nürburgring Nordschleife</h2 >
+                <h2>Nürburgring Nordschleife</h2>
                 </div>
                 <div className='card-body nring-body' >
                   <img src='https://www.tripsavvy.com/thmb/wmqYR-PRLtGF4_zflqnKy8BeOr8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Nuerburgring-595569813df78cdc290e4a57.jpg' style={{  width:'350px', objectFit:'cover' }}/>
@@ -133,7 +134,7 @@ function Nring() {
             </div>
             <div className='col-lg-6 lap-header'> 
               <div className='card text-white' style={{backgroundColor: "#36454F"}}>
-                <h1 style={{textAlign: 'center'}}>Lap Times</h1>
+                <h2 style={{textAlign: 'center'}}>Lap Times</h2>
               </div> <br></br>
               {cars.reduce((rows, car, index) => {
                 if (index % 3 === 0) rows.push([]);
@@ -148,7 +149,7 @@ function Nring() {
                           <h3 className="fs-5 mb-1">{car.car}</h3>
                           <p className="medium mb-2">Lap Time: {car.laptime}</p>
                             <button className='btn btn-secondary btn-sm' onClick={() => startEditing(car)}>Edit</button>
-                            <button className='btn btn-danger btn-sm mx-1' onClick={() => deleteCar(car.id)}>Delete</button>
+                            <button className='btn btn-danger btn-sm' onClick={() => deleteCar(car.id)}>Delete</button>
                         </div>
                         <div className='card-body'> 
                           {car.imageUrl && <img src={car.imageUrl} alt={car.car} className="img-fluid" style={{ width: '100%', height: '150px', objectFit:'cover' }} />}
@@ -159,69 +160,78 @@ function Nring() {
                 </div>
               ))}
             </div>
+            
             <div className='col-lg-3'>
-              <div className='card'>
-                <div className='car-form pt-2'>
-                  <form onSubmit={handleSubmit}>
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label px-4">Car:</label>
-                      <div class="col-sm-9 px-4">
-                        <input 
-                          class="form-control"
-                          name="car"
-                          value={newCar.car}
-                          onChange={handleInputChange}
-                          placeholder="Car Make and Model"
-                          required
-                        />
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label px-4">Image:</label>
-                      <div class="col-sm-9 px-4">
-                        <input 
-                          class="form-control"
-                          name="imageUrl"
-                          value={imageUrl}
-                          onChange={handleImageUrlChange}
-                          placeholder="Image URL"
-                          required
-                        />
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label px-4">Track:</label>
-                      <div class="col-sm-9 px-4">
-                        <input 
-                          class="form-control"
-                          name="imageUrl"
-                          value={imageUrl}
-                          onChange={handleImageUrlChange}
-                          placeholder="Track Name"
-                          required
-                        />
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label px-4">Lap Time:</label>
-                      <div class="col-sm-9 px-4">
-                        <input 
-                          class="form-control"
-                        name="imageUrl"
-                        value={imageUrl}
-                        onChange={handleImageUrlChange}
-                        placeholder="00:00.00"
-                        required
-                        />
-                      </div>
-                    </div>
-                    <div className='row px-5 pb-1 pt-2'>
-                      <button className='btn btn-primary btn-block' type="submit">{editingCar ? 'Update' : 'Add'} Car</button>
-                    </div>
-                  </form>
-                
+              <div className='card nring-site' style={{backgroundColor: "#36454F"}}>
+                  <div className='card-header text-white'>
+                    <h4><a href='https://www.nuerburgring.de'>Visit the Nürburgring Website!</a></h4>
+                  </div>
                 </div>
-              </div>
+                <br></br>
+                <div className='card' style={{backgroundColor: "#36454F"}}>
+                  <div className= 'car-form pt-2 text-white'>
+                    <form onSubmit={handleSubmit}>
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Car:</label>
+                        <div class="col-sm-9">
+                          <input 
+                            class="form-control"
+                            name="car"
+                            value={newCar.car}
+                            onChange={handleInputChange}
+                            placeholder="Car Make and Model"
+                            required
+                          />
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Image:</label>
+                        <div class="col-sm-9">
+                          <input 
+                            class="form-control"
+                            name="imageUrl"
+                            value={imageUrl}
+                            onChange={handleImageUrlChange}
+                            placeholder="Image URL"
+                            required
+                          />
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Track:</label>
+                        <div class="col-sm-9">
+                          <input 
+                            class="form-control"
+                            name="track"
+                            value="Nürburgring"
+                            readOnly
+                            required
+                          />
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Lap Time:</label>
+                        <div class="col-sm-9">
+                          <input 
+                            class="form-control"
+                            name="laptime"
+                            value={newCar.laptime}
+                            onChange={handleInputChange}
+                            placeholder="0:00.00"
+                            required
+                          />
+                        </div>
+                      </div>
+                      <div className='row px-5 pt-2'>
+                        <button className='btn btn-primary btn-block' type="submit">{editingCar ? 'Update' : 'Add'} Car</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <br></br>
+                <div>
+                  <HistoricMoments />
+                </div>
             </div>
           </div>
         </div>
