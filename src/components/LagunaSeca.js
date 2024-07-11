@@ -1,8 +1,8 @@
-import '../components/Nring.css';
+import '../components/LagunaSeca.css';
 import React, { useEffect, useState } from 'react';
-import HistoricMoments from './HistoricMoments';
 
-function Nring() {
+
+function LagunaSeca() {
   const API_URL='https://6679b67218a459f6395126c1.mockapi.io/api/laptime/cars';
 
   //setting state for our components
@@ -23,7 +23,7 @@ function Nring() {
       .then(response => response.json())
       .then(data => {
         const filteredCars = data.filter(car => {
-            return car.track === 'Nürburgring';
+            return car.track === 'Laguna Seca';
         });
         setCars(filteredCars);
       })
@@ -36,13 +36,12 @@ function Nring() {
   };
 
   const handleImageUrlChange = (e) => {
-    setImageUrl(e.target.value);
+    setNewCar(prev => ({ ...prev, image: e.target.value }));
   };
-
   //handles which type of submit it is. either editing current car or adding a new one
   const handleSubmit = (e) => {
     e.preventDefault();
-    const carData = { ...newCar, imageUrl };
+    const carData = { ...newCar, track: 'Laguna Seca' };
 
     if (editingCar) {
       updateCar(editingCar.id, carData);
@@ -68,8 +67,7 @@ function Nring() {
 
   //resets the input fields after use
   const resetForm = () => {
-    setNewCar({ car: '', track: 'Nürburgring', laptime: '' });
-    setImageUrl('');
+    setNewCar({ car: '', image: '', track: 'Laguna Seca', laptime: '' });
     setEditingCar(null);
   };
 
@@ -100,7 +98,8 @@ function Nring() {
     setEditingCar(car);
     setNewCar({
       car: car.car,
-      track: 'Nürburgring',
+      image: car.image || '',
+      track: 'Laguna Seca',
       laptime: car.laptime
     });
     setImageUrl(car.imageUrl || '');
@@ -115,26 +114,25 @@ function Nring() {
         
         
       
-        <div className="card-body" style={{backgroundImage:'url("https://www.24h-rennen.de/wp-content/uploads/2023/05/24hQualifiers_2023_Pulk-Nordschleife_Foto-GruppeC-ADAC.jpg")'}}>
+        <div className="card-body laguna-body">
           <div className="row">
             <div className='col-lg-3'>
             <div className='card text-white px-3' style={{backgroundColor: "#36454F", alignItems: "center", textAlign: "center"}}>
                 <div className='card-header'>
-                <h2>Nürburgring Nordschleife</h2>
+                <h2>Laguna Seca</h2>
                 </div>
-                <div className='card-body nring-body' >
-                  <img src='https://www.tripsavvy.com/thmb/wmqYR-PRLtGF4_zflqnKy8BeOr8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Nuerburgring-595569813df78cdc290e4a57.jpg' style={{  width:'350px', objectFit:'cover' }}/>
+                <div className='card-body' >
+                  <img src='https://www.motoamerica.com/wp-content/uploads/2021/08/Track.jpg' style={{  width:'350px', objectFit:'cover' }}/>
                 </div>
                 <div>
                   <p id='nring-desc'>
-                  The Nürburgring is one of the most iconic and challenging motorsports complexes in the world, located in the Eifel mountains of Germany. Opened in 1927, it consists of two main tracks: the modern 5.148 km Grand Prix circuit and the legendary 20.8 km Nordschleife. The Nordschleife, nicknamed the "Green Hell" by Jackie Stewart, is renowned for its demanding layout, featuring 154 turns, dramatic elevation changes, and high-speed sections that wind through dense forest. This treacherous track has been the site of numerous memorable races and tragic accidents, including Niki Lauda's near-fatal crash in 1976. Today, while Formula One races are held on the newer Grand Prix circuit, the Nordschleife remains a mecca for automotive enthusiasts, hosting endurance races, manufacturer testing, and public driving sessions known as "Touristenfahrten".
+                  Laguna Seca, officially known as WeatherTech Raceway Laguna Seca, is a world-renowned motorsports facility located in Monterey County, California. Opened in 1957, this 2.238-mile (3.602 km) road course is famous for its challenging layout and iconic features. The track's most notable element is the Corkscrew, a blind, plunging left-right combination with a dramatic elevation change of 59 feet between entry and exit. With 11 turns in total, Laguna Seca offers a mix of fast straights, technical corners, and elevation changes that test drivers' skills and vehicle performance. The circuit has hosted numerous prestigious racing events, including MotoGP, IMSA sports car races, and IndyCar Series competitions. Like the Nürburgring, Laguna Seca is also used for manufacturer testing and track day events, allowing enthusiasts to experience its thrilling layout firsthand. The track's picturesque setting in the Monterey hills, combined with its rich racing history, makes it a bucket-list destination for motorsports fans worldwide
                   </p>
                 </div>
 
               </div>
-              <div className='card'>
-                <img src='https://jacos-paddock.com/wp-content/uploads/2019/12/NordschleifeMap.png'></img>
-                
+              <div className='card laguna-layout'>
+                <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXheoW7HPOPgWuqMUh7xzssXJZDRwcq9Tgrg&s'></img>
               </div>
             </div>
             <div className='col-lg-6 lap-header'> 
@@ -157,7 +155,7 @@ function Nring() {
                             <button className='btn btn-danger btn-sm' onClick={() => deleteCar(car.id)}>Delete</button>
                         </div>
                         <div className='card-body'> 
-                          {car.imageUrl && <img src={car.imageUrl} alt={car.car} className="img-fluid" style={{ width: '100%', height: '150px', objectFit:'cover' }} />}
+                          {car.image && <img src={car.image} alt={car.car} className="img-fluid" style={{ width: '100%', height: '150px', objectFit:'cover' }} />}
                         </div>
                       </div>
                     </div>
@@ -169,7 +167,7 @@ function Nring() {
             <div className='col-lg-3'>
               <div className='card nring-site' style={{backgroundColor: "#36454F"}}>
                   <div className='card-header text-white'>
-                    <h4><a href='https://www.nuerburgring.de'>Visit the Nürburgring Website!</a></h4>
+                    <h4><a href='https://www.countyofmonterey.gov/government/government-links/weathertech-raceway'>Visit the Laguna Seca Website!</a></h4>
                   </div>
                 </div>
                 <br></br>
@@ -194,8 +192,8 @@ function Nring() {
                         <div class="col-sm-9">
                           <input 
                             class="form-control"
-                            name="imageUrl"
-                            value={imageUrl}
+                            name="image"
+                            value={newCar.image}
                             onChange={handleImageUrlChange}
                             placeholder="Image URL"
                             required
@@ -208,7 +206,7 @@ function Nring() {
                           <input 
                             class="form-control"
                             name="track"
-                            value="Nürburgring"
+                            value="Laguna Seca"
                             readOnly
                             required
                           />
@@ -235,7 +233,7 @@ function Nring() {
                 </div>
                 <br></br>
                 <div>
-                  <HistoricMoments />
+                  
                 </div>
             </div>
           </div>
@@ -247,6 +245,6 @@ function Nring() {
 }
 
 
-export default Nring;
+export default LagunaSeca;
 
 
