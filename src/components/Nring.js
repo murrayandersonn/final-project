@@ -1,6 +1,7 @@
 import '../components/Nring.css';
 import React, { useEffect, useState } from 'react';
 import HistoricMoments from './HistoricMoments';
+import NringForm from './NringForm';
 
 function Nring() {
   const API_URL='https://6679b67218a459f6395126c1.mockapi.io/api/laptime/cars';
@@ -9,8 +10,6 @@ function Nring() {
   const [cars, setCars] = useState([]);
   const [newCar, setNewCar] = useState({ car: '', image: '', track: '', laptime: '' });
   const [editingCar, setEditingCar] = useState(null);
-  const [imageUrl, setImageUrl] = useState('');
- 
 
   //renders again if theres an update
   useEffect(() => {
@@ -35,14 +34,11 @@ function Nring() {
     setNewCar(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleImageUrlChange = (e) => {
-    setImageUrl(e.target.value);
-  };
-
+  
   //handles which type of submit it is. either editing current car or adding a new one
   const handleSubmit = (e) => {
     e.preventDefault();
-    const carData = { ...newCar, imageUrl };
+    const carData = { ...newCar};
 
     if (editingCar) {
       updateCar(editingCar.id, carData);
@@ -68,8 +64,7 @@ function Nring() {
 
   //resets the input fields after use
   const resetForm = () => {
-    setNewCar({ car: '', track: 'Nürburgring', laptime: '' });
-    setImageUrl('');
+    setNewCar({ car: '', image: '', track: 'Nürburgring', laptime: '' });
     setEditingCar(null);
   };
 
@@ -100,10 +95,11 @@ function Nring() {
     setEditingCar(car);
     setNewCar({
       car: car.car,
+      image: car.image,
       track: 'Nürburgring',
       laptime: car.laptime
     });
-    setImageUrl(car.imageUrl || '');
+   
     
   };
 
@@ -157,7 +153,7 @@ function Nring() {
                             <button className='btn btn-danger btn-sm' onClick={() => deleteCar(car.id)}>Delete</button>
                         </div>
                         <div className='card-body'> 
-                          {car.imageUrl && <img src={car.imageUrl} alt={car.car} className="img-fluid" style={{ width: '100%', height: '150px', objectFit:'cover' }} />}
+                          {car.image && <img src={car.image} alt={car.car} className="img-fluid" style={{ width: '100%', height: '150px', objectFit:'cover' }} />}
                         </div>
                       </div>
                     </div>
@@ -173,66 +169,12 @@ function Nring() {
                   </div>
                 </div>
                 <br></br>
-                <div className='card' style={{backgroundColor: "#36454F"}}>
-                  <div className= 'car-form pt-2 text-white'>
-                    <form onSubmit={handleSubmit}>
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Car:</label>
-                        <div class="col-sm-9">
-                          <input 
-                            class="form-control"
-                            name="car"
-                            value={newCar.car}
-                            onChange={handleInputChange}
-                            placeholder="Car Make and Model"
-                            required
-                          />
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Image:</label>
-                        <div class="col-sm-9">
-                          <input 
-                            class="form-control"
-                            name="imageUrl"
-                            value={imageUrl}
-                            onChange={handleImageUrlChange}
-                            placeholder="Image URL"
-                            required
-                          />
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Track:</label>
-                        <div class="col-sm-9">
-                          <input 
-                            class="form-control"
-                            name="track"
-                            value="Nürburgring"
-                            readOnly
-                            required
-                          />
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Lap Time:</label>
-                        <div class="col-sm-9">
-                          <input 
-                            class="form-control"
-                            name="laptime"
-                            value={newCar.laptime}
-                            onChange={handleInputChange}
-                            placeholder="0:00.00"
-                            required
-                          />
-                        </div>
-                      </div>
-                      <div className='row px-5 pt-2'>
-                        <button className='btn btn-primary btn-block' type="submit">{editingCar ? 'Update' : 'Add'} Car</button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
+                <NringForm
+                    newCar={newCar}
+                    handleSubmit={handleSubmit}
+                    handleInputChange={handleInputChange}
+                    editingCar={editingCar}
+                  />
                 <br></br>
                 <div>
                   <HistoricMoments />

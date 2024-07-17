@@ -1,5 +1,6 @@
 import '../components/LagunaSeca.css';
 import React, { useEffect, useState } from 'react';
+import LagunaForm from './LagunaForm';
 
 
 function LagunaSeca() {
@@ -9,7 +10,7 @@ function LagunaSeca() {
   const [cars, setCars] = useState([]);
   const [newCar, setNewCar] = useState({ car: '', image: '', track: '', laptime: '' });
   const [editingCar, setEditingCar] = useState(null);
-  const [imageUrl, setImageUrl] = useState('');
+
  
 
   //renders again if theres an update
@@ -35,9 +36,7 @@ function LagunaSeca() {
     setNewCar(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleImageUrlChange = (e) => {
-    setNewCar(prev => ({ ...prev, image: e.target.value }));
-  };
+
   //handles which type of submit it is. either editing current car or adding a new one
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -102,8 +101,6 @@ function LagunaSeca() {
       track: 'Laguna Seca',
       laptime: car.laptime
     });
-    setImageUrl(car.imageUrl || '');
-    
   };
 
   return (
@@ -171,70 +168,18 @@ function LagunaSeca() {
                   </div>
                 </div>
                 <br></br>
-                <div className='card' style={{backgroundColor: "#36454F"}}>
-                  <div className= 'car-form pt-2 text-white'>
-                    <form onSubmit={handleSubmit}>
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Car:</label>
-                        <div class="col-sm-9">
-                          <input 
-                            class="form-control"
-                            name="car"
-                            value={newCar.car}
-                            onChange={handleInputChange}
-                            placeholder="Car Make and Model"
-                            required
-                          />
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Image:</label>
-                        <div class="col-sm-9">
-                          <input 
-                            class="form-control"
-                            name="image"
-                            value={newCar.image}
-                            onChange={handleImageUrlChange}
-                            placeholder="Image URL"
-                            required
-                          />
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Track:</label>
-                        <div class="col-sm-9">
-                          <input 
-                            class="form-control"
-                            name="track"
-                            value="Laguna Seca"
-                            readOnly
-                            required
-                          />
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Lap Time:</label>
-                        <div class="col-sm-9">
-                          <input 
-                            class="form-control"
-                            name="laptime"
-                            value={newCar.laptime}
-                            onChange={handleInputChange}
-                            placeholder="0:00.00"
-                            required
-                          />
-                        </div>
-                      </div>
-                      <div className='row px-5 pt-2'>
-                        <button className='btn btn-primary btn-block' type="submit">{editingCar ? 'Update' : 'Add'} Car</button>
-                      </div>
-                    </form>
-                  </div>
+                <div>
+                  <LagunaForm
+                    newCar={newCar}
+                    handleSubmit={handleSubmit}
+                    handleInputChange={handleInputChange}
+                    editingCar={editingCar}
+                  />
                 </div>
                 <br></br>
                 <div>
                   
-                </div>
+              </div>
             </div>
           </div>
         </div>

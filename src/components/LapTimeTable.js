@@ -26,45 +26,60 @@ const LapTimeTable = () => {
     fetchCars();
   }, []);
 
-  // Sort cars by lap time
-  const sortedCars = [...cars].sort((a, b) => {
-    const timeA = a.laptime.split(':').reduce((acc, time) => (60 * acc) + parseFloat(time));
-    const timeB = b.laptime.split(':').reduce((acc, time) => (60 * acc) + parseFloat(time));
-    return timeA - timeB;
-  });
+  // Group cars by track
+  const groupedCars = cars.reduce((acc, car) => {
+    if (!acc[car.track]) {
+      acc[car.track] = [];
+    }
+    acc[car.track].push(car);
+    return acc;
+  }, {});
+
+
+  // Sort cars by lap time within each track
+  const sortedGroupedCars = Object.keys(groupedCars).reduce((acc, track) => {
+    acc[track] = groupedCars[track].sort((a, b) => {
+      const timeA = a.laptime.split(':').reduce((acc, time) => (60 * acc) + parseFloat(time));
+      const timeB = b.laptime.split(':').reduce((acc, time) => (60 * acc) + parseFloat(time));
+      return timeA - timeB;
+    });
+    return acc;
+  }, {});
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
   return (
-    <div className='col-lg-6'>
-        <div className="card">
-        <div className="card-header bg-dark text-white">
-            <h2 className="text-center mb-0">Fastest Lap Times</h2>
+    <div className="lap-time-container">
+      {Object.keys(sortedGroupedCars).map(track => (
+        <div className="lap-time-column" key={track}>
+          <div className="card mb-4">
+            <div className="card-header bg-dark text-white">
+              <h2 className="text-center mb-0">{track} Lap Times</h2>
+            </div>
+            <div className="card-body">
+              <table className="table table-striped table-hover">
+                <thead className="thead-dark">
+                  <tr>
+                    <th>Position</th>
+                    <th>Car</th>
+                    <th>Lap Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {sortedGroupedCars[track].map((car, index) => (
+                    <tr key={car.id}>
+                      <td>{index + 1}</td>
+                      <td>{car.car}</td>
+                      <td>{car.laptime}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
-        <div className="card-body">
-            <table className="table table-striped table-hover">
-            <thead className="thead-dark">
-                <tr>
-                <th>Position</th>
-                <th>Car</th>
-                <th>Track</th>
-                <th>Lap Time</th>
-                </tr>
-            </thead>
-            <tbody>
-                {sortedCars.map((car, index) => (
-                <tr key={car.id}>
-                    <td>{index + 1}</td>
-                    <td>{car.car}</td>
-                    <td>{car.track}</td>
-                    <td>{car.laptime}</td>
-                </tr>
-                ))}
-            </tbody>
-            </table>
-        </div>
-        </div>
+      ))}
     </div>
   );
 };

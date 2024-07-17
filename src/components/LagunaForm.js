@@ -1,6 +1,6 @@
 import React from "react";
 
-const NringForm = ({ newCar, handleSubmit, handleInputChange, handleImageUrlChange, editingCar }) => {
+const LagunaForm = ({ newCar, handleSubmit, handleInputChange, handleImageUrlChange, editingCar }) => {
   return (
     <div className='card' style={{backgroundColor: "#36454F"}}>
       <div className='car-form pt-2 text-white'>
@@ -37,7 +37,7 @@ const NringForm = ({ newCar, handleSubmit, handleInputChange, handleImageUrlChan
               <input 
                 className="form-control"
                 name="track"
-                value="Nürburgring"
+                value="Laguna Seca"
                 readOnly
                 required
               />
@@ -67,4 +67,4 @@ const NringForm = ({ newCar, handleSubmit, handleInputChange, handleImageUrlChan
   );
 };
 
-export default NringForm;
+export default LagunaForm;
