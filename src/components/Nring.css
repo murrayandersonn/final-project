@@ -16,8 +16,16 @@
 .nring-site {
     color: white;
     text-align: center;
+    height: auto
 }
 
 .green-hell {
     text-align: center;
 }
+
+.laptimes {
+    height: 55px;
+    align-items: center;
+    justify-content: center;
+}
+

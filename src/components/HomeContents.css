@@ -1,0 +1,28 @@
+.track-title {
+    color: white;
+    text-decoration: none;
+}
+
+#nring-body {
+    background-image: url(https://sportscar365.com/wp-content/uploads/2023/05/24h-168225922864453d1c.jpeg);
+    height: 370px;
+    background-size: cover;
+    background-position: bottom;
+}
+
+#ls-body {
+    background-image: url(https://media.tacdn.com/media/attractions-splice-spp-674x446/06/7b/18/02.jpg);
+    height: 375px;
+    background-size: cover;
+    background-position: center;
+    object-fit: cover;
+}
+
+.home-text {
+    padding: 5px;
+    font-size: 1.1rem;
+}
+
+.card {
+    margin: 2px;
+}

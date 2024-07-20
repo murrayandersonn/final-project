@@ -6,3 +6,9 @@
     background-image: url(https://www.ebaymotorsblog.com/motors/blog/wp-content/uploads/2016/04/LagunaSeca1-1024.jpg);
     background-size: cover;
 }
+
+.laptimes {
+    height: 46px;
+    text-align: center;
+    justify-content: center;
+}

@@ -116,7 +116,7 @@ function Nring() {
             <div className='col-lg-3'>
             <div className='card text-white px-3' style={{backgroundColor: "#36454F", alignItems: "center", textAlign: "center"}}>
                 <div className='card-header'>
-                <h2>Nürburgring Nordschleife</h2>
+                <h2 className='laptimes'>Nürburgring Nordschleife</h2>
                 </div>
                 <div className='card-body nring-body' >
                   <img src='https://www.tripsavvy.com/thmb/wmqYR-PRLtGF4_zflqnKy8BeOr8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Nuerburgring-595569813df78cdc290e4a57.jpg' style={{  width:'350px', objectFit:'cover' }}/>
@@ -135,7 +135,7 @@ function Nring() {
             </div>
             <div className='col-lg-6 lap-header'> 
               <div className='card text-white' style={{backgroundColor: "#36454F"}}>
-                <h2 style={{textAlign: 'center'}}>Lap Times</h2>
+                <h2 className='laptimes'>Lap Times</h2>
               </div> <br></br>
               {cars.reduce((rows, car, index) => {
                 if (index % 3 === 0) rows.push([]);
@@ -165,7 +165,7 @@ function Nring() {
             <div className='col-lg-3'>
               <div className='card nring-site' style={{backgroundColor: "#36454F"}}>
                   <div className='card-header text-white'>
-                    <h4><a href='https://www.nuerburgring.de'>Visit the Nürburgring Website!</a></h4>
+                    <h4><a className='text-white' href='https://www.nuerburgring.de'>Visit the Nürburgring Website!</a></h4>
                   </div>
                 </div>
                 <br></br>

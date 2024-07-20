@@ -15,7 +15,6 @@ function HistoricMoments() {
                     </div>
                     <div className="card-body">
                         <p>On May 28, 1983, during qualifying for the 1000 km Nürburgring race, Bellof set an astonishing lap time of 6 minutes and 11.13 seconds. This lap was completed at an average speed of 202.073 km/h (125.562 mph)</p>
-                        <a href="https://www.stefan-bellof.de/en-gb/karriere/rekordrunde/">Learn more!</a>
                     </div>
                 </div>
                 <br></br>

@@ -1,12 +1,13 @@
 import '../components/LagunaSeca.css';
 import React, { useEffect, useState } from 'react';
 import LagunaForm from './LagunaForm';
+import LagunaMoments from './LagunaMoments';
 
 
 function LagunaSeca() {
   const API_URL='https://6679b67218a459f6395126c1.mockapi.io/api/laptime/cars';
 
-  //setting state for our components
+  //setting state for components
   const [cars, setCars] = useState([]);
   const [newCar, setNewCar] = useState({ car: '', image: '', track: '', laptime: '' });
   const [editingCar, setEditingCar] = useState(null);
@@ -134,7 +135,7 @@ function LagunaSeca() {
             </div>
             <div className='col-lg-6 lap-header'> 
               <div className='card text-white' style={{backgroundColor: "#36454F"}}>
-                <h2 style={{textAlign: 'center'}}>Lap Times</h2>
+                <h2 className='laptimes'>Lap Times</h2>
               </div> <br></br>
               {cars.reduce((rows, car, index) => {
                 if (index % 3 === 0) rows.push([]);
@@ -164,7 +165,7 @@ function LagunaSeca() {
             <div className='col-lg-3'>
               <div className='card nring-site' style={{backgroundColor: "#36454F"}}>
                   <div className='card-header text-white'>
-                    <h4><a href='https://www.countyofmonterey.gov/government/government-links/weathertech-raceway'>Visit the Laguna Seca Website!</a></h4>
+                    <h4><a className='text-white' href='https://www.countyofmonterey.gov/government/government-links/weathertech-raceway'>Visit the Laguna Seca Website!</a></h4>
                   </div>
                 </div>
                 <br></br>
@@ -178,11 +179,11 @@ function LagunaSeca() {
                 </div>
                 <br></br>
                 <div>
-                  
+                  <LagunaMoments />
+                </div>
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
 

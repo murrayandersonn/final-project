@@ -2,3 +2,10 @@
     background-color: #36454F;
     color: white;
 }
+
+.App {
+    display: unset;
+    height: 100%;
+    width: 100%;
+}
+
